@@ -6,24 +6,18 @@ android:
     uses_feature:
       - name: "android.hardware.vr.headtracking"
         required: true
-      - name: "oculus.software.handtracking"
-        required: true
-      - name: "com.oculus.feature.PASSTHROUGH"
-        required: true
-      - name: "com.oculus.experimental.enabled"
-        required: true
     uses_permission:
-      - name: "com.oculus.permission.HAND_TRACKING"
+      - name: "android.permission.VIBRATE"
+      - name: "org.khronos.openxr.permission.OPENXR"
+      - name: "org.khronos.openxr.permission.OPENXR_SYSTEM"
     application:
       label: "Bevy Openxr Android"
       theme: "@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
       meta_data:
-        - name: "com.oculus.intent.category.VR"
-          value: "vr_only"
-        - name: "com.samsung.android.vr.application.mode"
-          value: "vr_only"
-        - name: "com.oculus.supportedDevices"
-          value: "quest|quest2|quest3|questpro"
+        - name: "android.app.lib_name"
+          value: "hello_xr"
+        - name: "pvr.app.type"
+          value: "vr"
       activities:
         - config_changes: "density|keyboard|keyboardHidden|navigation|orientation|screenLayout|screenSize|uiMode|screenLayout"
           launch_mode: "singleTask"
@@ -31,9 +25,11 @@ android:
           intent_filters:
             - actions:
                 - "android.intent.action.MAIN"
+                - "org.khronos.openxr.OpenXRRuntimeService"
+                - "org.khronos.openxr.OpenXRApiLayerService"
               categories:
-                - "com.oculus.intent.category.VR"
                 - "android.intent.category.LAUNCHER"
                 - "org.khronos.openxr.intent.category.IMMERSIVE_HMD"
     sdk:
-      target_sdk_version: 32
+      target_sdk_version: 29
+      min_sdk_version: 24
